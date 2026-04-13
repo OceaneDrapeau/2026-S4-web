@@ -13,19 +13,7 @@ import ArtworkCard from './components/ArtworkCard.vue';
     <div id="artwork-collection">
       <div id="artworks-cards">
         <ArtworkCard/>
-        <div id="artwork-card-hover">
-          <img
-            id = "artwork-picture"
-            src = "https://collectionapi.metmuseum.org/api/collection/v1/iiif/325693/2345379/main-image"
-            alt = "artwork"
-          />
-          <div id = "artwork-informations" >
-            <h3>Vessel with six animal friezes</h3>
-            <p class = "artwork-artist">Unknown artist</p>
-            <p class = "artwork-date">ca. 10th–8th century BCE</p>
-            <p class = "artwork-department">Ancient West Asian Art Department</p>
-          </div>
-        </div>
+        <ArtworkCard/>
       </div>
       <div id="pagination">
         <img id="goBackward" src="/icons/arrow-icon.svg" alt="go to previous page"/>
@@ -182,43 +170,6 @@ import ArtworkCard from './components/ArtworkCard.vue';
   #artwork-collection {
     display: flex;
     flex-direction: column;
-  }
-
-
-  #artwork-card-hover {
-    width: 400px;
-    height: 200px;
-
-    padding: 10px;
-    border-radius: 10px;
-    border: 0.5rem solid #5A051A;
-
-    overflow: hidden;
-    margin: 10px;
-    background-color: #E1D5D7;
-
-  }
-
-  #artwork-card-hover #artwork-informations {
-    background-color:#5a051a90;
-    position: relative;
-    width: 400px;
-    height: 200px;
-    top: -220px;
-    left: -20px;
-  }
-
-  #artwork-card-hover .artwork-artist, #artwork-card-hover h3, #artwork-card-hover .artwork-date {
-    color:#EEE9E9;
-  }
-
-  #artwork-card-hover .artwork-department {
-    color: #EEE9E9;
-  }
-
-  #artwork-card-hover #artwork-picture{
-    width: 100%;
-    max-height: 100%;
   }
 
   #body {

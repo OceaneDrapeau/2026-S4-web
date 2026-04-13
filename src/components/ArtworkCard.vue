@@ -19,6 +19,7 @@
     </div>
   </div>
 </template>
+
 <style scoped>
   #artwork-card {
     width: 400px;
@@ -34,6 +35,8 @@
 
     position: relative;
     cursor: pointer;
+
+    transition: border-color 0.3s;
   }
 
   #artwork-picture {
@@ -47,6 +50,7 @@
     top: 0;
     left: 0;
   }
+
   #artwork-informations {
     position: absolute;
     top: 0;
@@ -61,6 +65,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    transition: background 0.3s, width 0.3s;
+    z-index: 2;
+
   }
 
   #artwork-informations h3 {
@@ -84,5 +92,38 @@
     color: #7a4e59;
     margin: 0;
     font-size: 0.8rem;
+    transition: color 0.3s;
   }
+
+  #artwork-card:hover {
+    border-color: #5a051a;
   }
+
+  #artwork-card:hover #artwork-picture {
+    width: 100%;
+    filter: blur(3px);
+    transform: scale(1.05)
+  }
+
+  #artwork-card:hover #artwork-informations {
+    width: 100%;
+    background-color:#5a051a90;
+    justify-content: flex-end;
+    padding: 20px;
+    border-radius: 0;
+
+  }
+
+  #artwork-card:hover h3,
+  #artwork-card:hover .artwork-artist,
+  #artwork-card:hover .artwork-date {
+    color:#EEE9E9;
+    text-shadow: 0 1px 6px rgba(10, 8, 8, 0.8);
+  }
+
+  #artwork-card:hover .artwork-department {
+    color: #d4a0ae;
+    text-shadow: 0 1px 6px rgba(10, 8, 8, 0.8);
+  }
+
+</style>
