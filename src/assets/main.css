@@ -15,3 +15,22 @@
   unicode-range: U+000-5FF;
   src: local(InriaSans), url("/fonts/InriaSans/InriaSans-Regular.ttf") format("truetype");
 }
+
+body {
+  background-color: #EEE9E9;
+  color: #5A051A;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* background-color: #d20000; */
+  overflow: hidden  ;
+}
