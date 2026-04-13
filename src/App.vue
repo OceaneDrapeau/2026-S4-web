@@ -1,5 +1,6 @@
 <script setup>
 import ArtworkCard from './components/ArtworkCard.vue';
+import FiltersItem from './components/FiltersItem.vue';
 import PaginationItem from './components/PaginationItem.vue';
 
 </script>
@@ -19,58 +20,7 @@ import PaginationItem from './components/PaginationItem.vue';
       <PaginationItem/>
     </div>
 
-    <div id="filters">
-      <div id="box-header">
-        <h2>Filters</h2>
-        <h2>X</h2>
-      </div>
-
-      <div id="general-search">
-        <label for="search-scope-select">General search</label>
-
-        <select name="search-scope-select">
-          <option value="">Everywhere</option>
-          <option value="title">Title</option>
-          <option value="artist">Artist</option>
-          <option value="description">Description</option>
-        </select>
-
-        <input type="text" v-model="generalSearch" placeholder="Search your art">
-      </div>
-      <div>
-        <label for="department-select">Department</label>
-        <select name="department-select">
-          <option value="">Every departments</option>
-          <option value="nameDepartment">European Sculpture and Decorative Arts</option>
-          <option value="nameDepartment">European Sculpture and Decorative Arts</option>
-          <option value="nameDepartment">European Sculpture and Decorative Arts</option>
-          <option value="nameDepartment">European Sculpture and Decorative Arts</option>
-          <option value="nameDepartment">European Sculpture and Decorative Arts</option>
-          <option value="nameDepartment">European Sculpture and Decorative Arts</option>
-          <option value="nameDepartment">European Sculpture and Decorative Arts</option>
-        </select>
-      </div>
-      <div id="date-input">
-        <p>Date</p>
-        <div class="from-to-inputs">
-          <label for="dateFrom">From</label>
-          <input type="number" v-model="dateFrom" min="-99999">
-          <p> - </p>
-          <label for="dateTo">To</label>
-          <input type="number" v-model="dateTo" max="99999">
-        </div>
-      </div>
-      <div id="order-by">
-        <label for="order-by-select">Order by</label>
-        <select name="order-by-select">
-          <option value="alphabeticalTitle">Title (A-Z)</option>
-          <option value="reverseAlphabeticalTitle">Title (Z-A)</option>
-        </select>
-        <button>Reverse order</button>
-      </div>
-
-
-    </div>
+    <FiltersItem/>
 
   </div>
   <footer><p>Made with the Metropolitan Museum of Art API</p></footer>
@@ -140,22 +90,6 @@ import PaginationItem from './components/PaginationItem.vue';
     color: #E8DEDF;
   }
 
-  #order-by button {
-    width: 8rem;
-    text-align: left;
-    background: #E8DEDF url("/icons/reverse-icon.svg") no-repeat right 7% center;
-    background-size: 15px 15px;
-    padding: 7px 0px 7px 15px; /*top right bottom left*/
-    border: .1rem solid #5A051A;
-    border-radius: 15px;
-  }
-
-  #order-by button:active {
-    background: #5A051A url("/icons/reverse-icon-light.svg") no-repeat right 7% center;
-    background-size: 15px 15px;
-    color: #E8DEDF;
-  }
-
   #artwork-cards {
     display: flex;
     flex-wrap: wrap;
@@ -168,73 +102,5 @@ import PaginationItem from './components/PaginationItem.vue';
   #body {
     display: flex;
   }
-
-  #filters{
-    background-color:#E8DEDF;
-    width: 30%;
-    align-self: stretch;
-    border-left: 3px solid;
-    padding-left: 10px;
-    /* max-width: 50vw; */
-
-    display:flex;
-    flex-direction: column;
-    justify-content: space-between;
-    /* padding: 10px; */
-  }
-  #general-search{
-    background-color:red;
-  }
-
-  select {
-    background: #EEE9E9 url("/icons/arrow-icon.svg") no-repeat right 7% center;
-    background-size: 12px 12px;
-    padding: 7px 15px 7px 15px; /*top right bottom left*/
-    border: .1rem solid #5A051A;
-    border-radius: 8px;
-    font-size: .75rem;
-  }
-
-  /* TODO: when selected with options arrow going up instead of down */
-  #general-search input {
-    width: 15rem;
-    background: #EEE9E9 url("/icons/search-icon.svg") no-repeat right 4.75% center;
-    background-size: 15px 15px;
-    padding: 7px 0px 7px 15px;
-    border: .1rem solid #5A051A;
-    border-radius: 8px;
-    /* overflow: hidden; */
-    font-size: .75rem;
-  }
-
-  #date-input input{
-    width: 4rem;
-    background-color:#EEE9E9;
-    background-size: 15px 15px;
-    padding: 7px 0px 7px 15px;
-    border: .1rem solid #5A051A;
-    border-radius: 8px;
-    /* overflow: hidden; */
-    font-size: .75rem;
-  }
-
-  #box-header {
-    display:flex;
-    justify-content: space-between;
-  }
-
-
-  #date-input{
-    display:flex;
-    flex-direction: column;
-
-  }
-
-  .from-to-inputs{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
 
 </style>
