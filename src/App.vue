@@ -1,4 +1,7 @@
-<script setup></script>
+<script setup>
+import ArtworkCard from './components/ArtworkCard.vue';
+
+</script>
 
 <template>
   <header>
@@ -9,19 +12,7 @@
   <div id="body">
     <div id="artwork-collection">
       <div id="artworks-cards">
-        <div id="artwork-card">
-          <img
-            id = "artwork-picture"
-            src = "https://collectionapi.metmuseum.org/api/collection/v1/iiif/325693/2345379/main-image"
-            alt = "artwork"
-          />
-          <div id = "artwork-informations" >
-            <h3>Vessel with six animal friezes</h3>
-            <p class = "artwork-artist">Unknown artist</p>
-            <p class = "artwork-date">ca. 10th–8th century BCE</p>
-            <p class = "artwork-department">Ancient West Asian Art Department</p>
-          </div>
-        </div>
+        <ArtworkCard/>
         <div id="artwork-card-hover">
           <img
             id = "artwork-picture"
@@ -119,11 +110,13 @@
     margin:0px;
     padding:0px 30px;
     flex-wrap: wrap;
+    /* flex-direction: row; */
     align-items: center;
     justify-content: space-between;
   }
 
   h1 {
+    /* color: #5A051A; */
     font-family: "WinkySans";
     text-transform: uppercase;
     font-size: xx-large;
@@ -146,6 +139,7 @@
     padding: 7px 0px 7px 15px;
     border: .1rem solid #5A051A;
     border-radius: 15px;
+    /* overflow: hidden; */
     font-size: .75rem;
   }
 
@@ -190,46 +184,6 @@
     flex-direction: column;
   }
 
-  #artwork-card {
-    width: 400px;
-    height: 200px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
-    padding: 10px;
-
-    border-radius: 10px;
-    border: 0.5rem solid #E1D5D7;
-
-    overflow: hidden;
-    margin: 10px;
-    background-color: #E1D5D7;
-
-  }
-
-  #artwork-informations {
-    padding: 20px;
-    background-color: #E8DEDF;
-    border-radius: 8px;
-    font-size: 1rem;
-
-  }
-
-  .artwork-artist{
-    font-weight: 300;
-  }
-
-  .artwork-department{
-    color: #7a4e59;
-  }
-
-  #artwork-picture {
-    flex:1;
-    width: auto;
-    height: 100%;
-    object-fit: cover;
-  }
 
   #artwork-card-hover {
     width: 400px;
@@ -277,11 +231,12 @@
     align-self: stretch;
     border-left: 3px solid;
     padding-left: 10px;
+    /* max-width: 50vw; */
 
     display:flex;
     flex-direction: column;
     justify-content: space-between;
-
+    /* padding: 10px; */
   }
   #general-search{
     background-color:red;
@@ -315,6 +270,7 @@
     padding: 7px 0px 7px 15px;
     border: .1rem solid #5A051A;
     border-radius: 8px;
+    /* overflow: hidden; */
     font-size: .75rem;
   }
 
