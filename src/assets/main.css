@@ -1,0 +1,17 @@
+@font-face {
+  font-family: "WinkySans";
+  font-weight: 400;
+  font-style: normal;
+  font-display: auto;
+  unicode-range: U+000-5FF;
+  src: local(WinkySans), url("/fonts/WinkySans/WinkySans-VariableFont_wght.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "InriaSans";
+  font-weight: 400;
+  font-style: normal;
+  font-display: auto;
+  unicode-range: U+000-5FF;
+  src: local(InriaSans), url("/fonts/InriaSans/InriaSans-Regular.ttf") format("truetype");
+}
