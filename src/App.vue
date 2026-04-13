@@ -1,5 +1,6 @@
 <script setup>
 import ArtworkCard from './components/ArtworkCard.vue';
+import PaginationItem from './components/PaginationItem.vue';
 
 </script>
 
@@ -15,15 +16,7 @@ import ArtworkCard from './components/ArtworkCard.vue';
         <ArtworkCard/>
         <ArtworkCard/>
       </div>
-      <div id="pagination">
-        <img id="goBackward" src="/icons/arrow-icon.svg" alt="go to previous page"/>
-        <p>1</p>
-        <p>2</p>
-        <p>3</p>
-        <p>4</p>
-        <p>5</p>
-        <img id="goForward" src="/icons/arrow-icon.svg" alt="go to next page"/>
-      </div>
+      <PaginationItem/>
     </div>
 
     <div id="filters">
@@ -243,16 +236,5 @@ import ArtworkCard from './components/ArtworkCard.vue';
     justify-content: space-between;
   }
 
-  #pagination {
-    align-self: flex-end;
-    display:flex;
-    align-items: center;
-    justify-content: space-around;
-  }
-
-  #pagination img {
-    width: 15px;
-    height: 15px;
-  }
 
 </style>
