@@ -1,7 +1,17 @@
 <script setup>
-  import {ref} from 'vue';
-  const totalPages = 5;
-  const currentPage = ref(1);
+  // import {ref} from 'vue';
+  // const totalPages = 5;
+  // const currentPage = ref(1);
+
+  const props = defineProps(['currentPage', 'totalPages']);
+  const emit = defineEmits(['update:currentPage']);
+
+  const changePage = (newPage) =>  {
+    if (newPage >=1 && newPage <= props.totalPages) {
+      emit('update:currentPage', newPage);
+    }
+  }
+
 </script>
 
 <template>
@@ -11,14 +21,17 @@
       src="/icons/arrow-icon.svg"
       alt="go to previous page"
       :class="{disabled: currentPage === 1 }"
-      @click="currentPage>1 && currentPage--"
+      @click="changePage(currentPage-1)"
     />
+
     <p
       v-for="page in totalPages"
       :key="page"
       :class="{active: currentPage === page}"
-      @click="currentPage = page">
+      @click="changePage(page)">
+
       {{ page }}
+
     </p>
 
     <img
@@ -26,7 +39,7 @@
       src="/icons/arrow-icon.svg"
       alt="go to next page"
       :class="{disabled: currentPage === totalPages }"
-      @click="currentPage<totalPages && currentPage++"
+      @click="changePage(currentPage+1)"
     />
   </div>
 </template>
