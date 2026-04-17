@@ -1,8 +1,4 @@
 <script setup>
-  // import {ref} from 'vue';
-  // const totalPages = 5;
-  // const currentPage = ref(1);
-
   const props = defineProps(['currentPage', 'totalPages']);
   const emit = defineEmits(['update:currentPage']);
 

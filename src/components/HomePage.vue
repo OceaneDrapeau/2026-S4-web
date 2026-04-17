@@ -6,15 +6,34 @@ import PaginationItem from '../components/PaginationItem.vue';
 import AppLoader from '../components/AppLoader.vue';
 import { getAllDepartments, getAllObjectsInfo } from '../services/api/metAPI';
 
-
-// Fetch data
+// Init
 const isLoading = ref(false);
 const errorMessage = ref(null);
+
+// Data to be fetched
 const objects = ref([]);
+const departments = ref({});
+
+// Pagination
 const currentPage = ref(1);
+const totalPages= ref(5); // TODO: change this to actual number of pages
 
-const totalPages= ref(5); // TODO: change this to actual
+// Filters
+const filters = ref ({
+  generalSearch: '',
+  searchScope: '',
+  department: '',
+  dateFrom: '',
+  dateTo: '',
+  orderBy: 'alphabeticalTitle',
+  isReversed: false
+})
 
+const headerSearch = ref(''); // TODO : move this with header
+const openedFilters = ref(false);
+
+
+// Fetch data
 const loadData = async (page) => {
   try {
     isLoading.value = true;
@@ -32,35 +51,16 @@ const loadData = async (page) => {
 
 loadData(currentPage.value);
 
-watch(currentPage, (newPage) => { loadData (newPage);});
-
-const departments = ref({});
-
 const getDepartments = async() => {
   departments.value = await getAllDepartments()
 }
 
 getDepartments();
 
-console.log("departments : ", departments)
-
-console.log("objects : ", objects);
 
 // Filters
-const openedFilters = ref(false);
 
-const filters = ref ({
-  generalSearch: '',
-  searchScope: '',
-  department: '',
-  dateFrom: '',
-  dateTo: '',
-  orderBy: 'alphabeticalTitle',
-  isReversed: false
-})
-
-const headerSearch = ref('')
-
+// number of active filters
 const activeFiltersCount = computed(()=> {
   const filtersValue = filters.value
   return [
@@ -71,6 +71,7 @@ const activeFiltersCount = computed(()=> {
   ].filter(value => value != '' && value !== false).length
 })
 
+// Filters application
 const filteredObjects = computed(() => {
   return objects.value.filter(obj => {
 
@@ -87,7 +88,6 @@ const filteredObjects = computed(() => {
       ) ||
       (scope === 'title' && obj.title?.toLowerCase().includes(generalSearchTerm)) ||
       (scope === 'artist' && obj.artistDisplayName?.toLowerCase().includes(generalSearchTerm))
-      // || (scope === 'description' && obj.artistDisplayBio?.toLowerCase.includes(generalSearchTerm))
       if (!matchesSearch) return false;
     }
 
@@ -114,9 +114,13 @@ const filteredObjects = computed(() => {
 
 });
 
+// Watchers
+
 watch(headerSearch, (newVal) => {
       filters.value.generalSearch = newVal;
 });
+
+watch(currentPage, (newPage) => { loadData (newPage);});
 
 
 </script>
@@ -124,8 +128,8 @@ watch(headerSearch, (newVal) => {
 <template>
   <div id = "page">
     <div id = "loader" v-if = "isLoading"> <AppLoader/></div>
-        <!-- <div id = "loader"> <AppLoader/></div> -->
 
+    <!-- TODO: separate header and footer to components to reuse them across the site -->
     <header>
       <h1>The art collection</h1>
       <input type="text" v-model="headerSearch" placeholder="Browse the collection...">
@@ -140,11 +144,10 @@ watch(headerSearch, (newVal) => {
     </header>
 
     <div id="body">
-    <!-- TODO : change body to div something or remove it entirely bcause incorrect term -->
-
 
       <div id="artwork-collection">
 
+        <!-- Error handling-->
         <div v-if="errorMessage" id="error-container">
           <div class="error-content">
             <img src="/icons/info-icon.svg" alt="Error" class="error-icon" />
@@ -155,15 +158,17 @@ watch(headerSearch, (newVal) => {
           </div>
         </div>
 
+        <!-- Call artwork component (for...loop) | uses filteredObjects -->
         <div id="artworks-cards">
-       <!-- <ArtworkCard v-for="item in objects" :key="item.objectID" :obj="item" /> -->
-        <ArtworkCard v-for="item in filteredObjects" :key = "item.objectID" :obj="item"/>
-      </div>
+          <ArtworkCard v-for="item in filteredObjects" :key = "item.objectID" :obj="item"/>
+        </div>
 
+        <!-- Pagination -->
         <PaginationItem :currentPage="currentPage" @update:currentPage= "currentPage=$event" :totalPages = "totalPages"/>
 
       </div>
 
+      <!-- Filters -->
       <div id = "filters-panel" v-if = "openedFilters">
         <FiltersPanel
           :departments="departments"
@@ -173,6 +178,7 @@ watch(headerSearch, (newVal) => {
         />
       </div>
     </div>
+    <!-- TODO: separate header and footer to components to reuse them across the site -->
     <footer><p>Made with the Metropolitan Museum of Art API</p></footer>
   </div>
 </template>

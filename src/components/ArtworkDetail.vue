@@ -4,7 +4,7 @@ import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import AppLoader from './AppLoader.vue';
 
-// Fetch data
+// Init
 const isLoading = ref(false);
 const errorMessage = ref(null);
 const artworkData = ref(null);
@@ -14,6 +14,7 @@ const imageError = ref(false);
 const route = useRoute();
 const router = useRouter();
 
+// Fetch data
 const loadArtwork = async () =>
 {
   try {

@@ -1,13 +1,10 @@
 <script setup>
-import { ref, computed } from 'vue';
+import {computed } from 'vue';
 
 const props = defineProps({
   departments : {type: Array},
   modelValue: {type: Object},
 })
-
-const isDeptOpen = ref(false);
-
 
 const emit = defineEmits(['update:modelValue', 'close'])
 
@@ -31,8 +28,7 @@ const searchPlaceholder = computed(()=> {
     'artist': 'Search in artist',
   }
   return map[props.modelValue.searchScope] ?? 'Search the collection'
-  })
-
+})
 
 </script>
 
