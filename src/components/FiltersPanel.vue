@@ -6,84 +6,8 @@ const props = defineProps({
   modelValue: {type: Object},
 })
 
-const search = ref('')
-const departmentList = ref(props.modelValue.department)
-const artistList = ref(props.modelValue.artistDisplayName)
-const titleList = ref(props.modelValue.title)
-const descriptionList = ref(props.modelValue.artistDisplayBio)
-const everyList = ref(props.modelValue.artistDisplayName,props.modelValue.title,props.modelValue.artistDisplayBio)
-//objectBeginDate  objectEndDate
-const beginList = ref(props.modelValue.objectBeginDate)
-const searchFrom = ref('')
-const searchTo = ref('')
+const isDeptOpen = ref(false);
 
-
-const filteredItems = computed(() => {
- if(!filters.value.searchScope ) {
-  return everyList.value.filter(
-    (generalSearch) => generalSearch.toLowerCase().includes(search.value.toLowerCase()))
-    }
-  else {
-    if (filters.value.searchScope === 'title') {
-         console.log('title search')
-        return titleList.value.filter(
-        (generalSearch) => generalSearch.toLowerCase().includes(search.value.toLowerCase()))
-    }
-    else { //artist, description
-       if (filters.value.searchScope === 'artist') {
-          return artistList.value.filter(
-            (generalSearch) => generalSearch.toLowerCase().includes(search.value.toLowerCase()))
-      }
-      else
-      {
-        if (filters.value.searchScope === 'description') {
-          return artistList.value.filter(
-            (generalSearch) => generalSearch.toLowerCase().includes(search.value.toLowerCase()))
-        }
-        else {
-          if (!filters.value.department ) {
-            return departmentList.value.filter(
-              (departmentSearch) => departmentSearch.towerCase().includes(search.value.toLowerCase()))
-          }
-          else
-          { //replace department by From && To
-            if (!filters.value.department && !filters.value.department) {
-              return beginList.value.filter(
-              (fromSearch) => fromSearch.value > searchFrom.value && fromSearch.value < searchTo.value)
-            } else {//replace department by From
-            if (!filters.value.department ) {
-            return beginList.value.filter(
-              (fromSearch) => fromSearch.value > searchFrom.value)
-             }
-             else
-             {//replace department by To
-              if (!filters.value.department ) {
-            return beginList.value.filter(
-              (fromSearch) => fromSearch.value < searchTo.value)
-             }
-             else
-             {
-
-              return everyList.value
-             }
-             }
-          }
-      //    return everyList.value.filter(
-      //    (generalSearch) => generalSearch.toLowerCase().includes(search.value.toLowerCase()))
-      //const values = [1, 10, 21, 2];
-      //const sortedValues = values.toSorted((a, b) => a - b);
-         }
-    }
-  }
-
-  }
-}
-}
-)
-
-//filters.generalSearch
-//filters.searchScope
-//filters.department
 
 const emit = defineEmits(['update:modelValue', 'close'])
 
@@ -105,7 +29,6 @@ const searchPlaceholder = computed(()=> {
     '': 'Search everywhere',
     'title': 'Search in title',
     'artist': 'Search in artist',
-    'description': 'Search in description',
   }
   return map[props.modelValue.searchScope] ?? 'Search the collection'
   })
@@ -123,13 +46,12 @@ const searchPlaceholder = computed(()=> {
       <div class="filter-group">
         <label>General search</label>
         <div class="row-inputs">
-          <select :v-model="filters.searchScope" @change="update('searchScope', $event.target.value)">
+          <select :value="filters.searchScope" @change="update('searchScope', $event.target.value)">
             <option value="">Everywhere</option>
             <option value="title">Title</option>
             <option value="artist">Artist</option>
-            <option value="description">Description</option>
           </select>
-          <input type="text" :v-model="filters.generalSearch" @input="update('generalSearch', $event.target.value)" :placeholder="searchPlaceholder">
+          <input type="text" :value="filters.generalSearch" @input="update('generalSearch', $event.target.value)" :placeholder="searchPlaceholder">
 
           <p>search : {{ filters.generalSearch }}</p>
           <p>scope of the search : {{ filters.searchScope }}</p>
@@ -138,13 +60,14 @@ const searchPlaceholder = computed(()=> {
 
       <div class="filter-group">
         <label>Department</label>
-        <select :v-model="filters.department" @change="update('department', $event.target.value)">
-          <option value="">Every departments</option>
-          <option v-for = "department in props.departments" :key = "department.departmentId" :value = "department.displayName">{{department.displayName}}</option>
-          <!--
-          <option value="dep1">European Sculpture and Decorative Arts</option>
-          <option value="dep2">Egyptian Art</option> -->
-        </select>
+        <div class="select-wrapper">
+          <select :value="filters.department" @change="update('department', $event.target.value)">
+            <option value="">Every departments</option>
+            <option v-for = "department in props.departments" :key = "department.departmentId" :value = "department.displayName">{{department.displayName}}</option>
+          </select>
+          <img src="/icons/arrow-icon.svg" class="select-arrow" alt="" />
+        </div>
+
       </div>
 
       <div class="filter-group">
@@ -179,16 +102,12 @@ const searchPlaceholder = computed(()=> {
       align-self: stretch;
       border-left: 3px solid #5A051A;
       padding: 16px;
-      /* padding-left: 10px; */
-      /* max-width: 50vw; */
 
       display:flex;
       flex-direction: column;
 
       gap: 24px;
       box-sizing: border-box;
-      /* justify-content: space-between; */
-      /* padding: 10px; */
   }
 
   #filters-header {
