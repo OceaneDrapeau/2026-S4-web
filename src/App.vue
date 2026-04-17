@@ -141,6 +141,7 @@ watch(headerSearch, (newVal) => {
     <div id="body">
     <!-- TODO : change body to div something or remove it entirely bcause incorrect term -->
 
+
       <div id="artwork-collection">
 
         <div v-if="errorMessage" id="error-container">
@@ -152,8 +153,10 @@ watch(headerSearch, (newVal) => {
             </button>
           </div>
         </div>
+
         <div id="artworks-cards">
-       <ArtworkCard v-for="item in objects" :key="item.objectID" :obj="item" />
+       <!-- <ArtworkCard v-for="item in objects" :key="item.objectID" :obj="item" /> -->
+        <ArtworkCard v-for="item in filteredObjects" :key = "item.objectID" :obj="item"/>
       </div>
 
         <PaginationItem :currentPage="currentPage" @update:currentPage= "currentPage=$event" :totalPages = "totalPages"/>
