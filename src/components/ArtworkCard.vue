@@ -19,10 +19,17 @@ console.log(props.obj)
   <div id="artwork-card">
     <img
       id = "artwork-picture"
-      v-if="props.obj.primaryImageSmall"
+      v-if="props.obj.primaryImageSmall && !imageError"
       :src =  props.obj.primaryImageSmall
-      alt = "No available picture"
+      @error = "handleImageError"
+      alt = "Artwork"
+      loading="lazy"
     />
+
+    <div v-else id="artwork-picture" class="placeholder-box">
+      <span>Unavailable picture</span>
+    </div>
+
     <div id = "artwork-informations" >
       <h3>{{ props.obj.title }}</h3>
       <p class = "artwork-artist">{{ props.obj.artistDisplayName }}</p>
@@ -136,6 +143,29 @@ console.log(props.obj)
   #artwork-card:hover .artwork-department {
     color: #d4a0ae;
     text-shadow: 0 1px 6px rgba(10, 8, 8, 0.8);
+  }
+
+  .placeholder-box {
+    background-color: #EEE9E9;
+
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+
+    font-size: .75rem;
+    font-style: italic;
+    color: #7a4e59;
+    border-right: 1px solid #E1D5D7;
   }
 
 </style>
