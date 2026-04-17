@@ -138,7 +138,8 @@ watch(headerSearch, (newVal) => {
        <ArtworkCard v-for="item in objects" :key="item.objectID" :obj="item" />
       </div>
 
-        <PaginationItem v-model = "currentPage" :totalPages = "totalPages"/>
+        <PaginationItem :currentPage="currentPage" @update:currentPage= "currentPage=$event" :totalPages = "totalPages"/>
+
       </div>
 
       <div id = "filters-panel" v-if = "openedFilters">
