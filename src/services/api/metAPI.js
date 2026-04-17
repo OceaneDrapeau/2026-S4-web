@@ -2,7 +2,6 @@ const get = async function (request) {
   const response = await fetch(request);
   if (response.ok) {
     const data = await response.json();
-    // console.log("get : ", request, "data : ", data);
     return data;
   }
   else {
@@ -65,12 +64,12 @@ const splitArray = (arrayToSplit, nbItemsByArray) => {
 const getObjectsInGroups = async (objectIDsArray) => {
   const splitObjectIDs = splitArray(objectIDsArray, 10);
 
-  console.log("splitObjectIDs = ", splitObjectIDs);
-  const interval = 5000;
+  // console.log("splitObjectIDs = ", splitObjectIDs);
+  const interval = 2000;
   let allResults = [];
 
   for (const group of splitObjectIDs) {
-    console.log(`Récupération d'un groupe de ${group.length} objets`);
+    console.log(`Get a group of length : ${group.length} objects`);
 
     const groupPromises  = group.map((id)=> getObjectById(id));
     const results = await Promise.all(groupPromises);
@@ -81,9 +80,7 @@ const getObjectsInGroups = async (objectIDsArray) => {
       await new Promise(resolve => setTimeout(resolve, interval));
     }
 
-    // console.log("results : ", results);
-    // console.log("...results : ",...results);
-    console.log("allResults : ", allResults);
+    // console.log("allResults : ", allResults);
 
   }
 
@@ -93,13 +90,10 @@ const getObjectsInGroups = async (objectIDsArray) => {
 
 const getAllObjectsInfo = async function (page) {
   const allObjectIDs = await getAllObjectIDs();
-  // console.log("allObject IDS : ", allObjectIDs);
   const slicedObjectsIDs = splitArray(allObjectIDs, 30);
 
-
-  // const objectsInfos = await getObjectsInGroups(allObjectIDs.slice(0,50));
   const objectsInfos = await getObjectsInGroups(slicedObjectsIDs[page]);
-  console.log("objectsInfos : ", objectsInfos);
+  // console.log("objectsInfos : ", objectsInfos);
   return objectsInfos;
 }
 
