@@ -1,18 +1,16 @@
 <script setup>
-  // const props = defineProps({
+
+import {ref} from 'vue';
+
   const props = defineProps({
-  obj: { type: Object, required: true },
+    obj: { type: Object, required: true },
+  });
 
-  // url: { type: String, required: true },
-  // text: { type: String, default: 'Visit my website' },
-  // legend: { type: Object, default: 'Vessel with six animal friezes' },
-  // artist: { type: Object, default: 'Unknown artist' },
-  // date: { type: Object, default: 'ca. 10th–8th century BCE' },
-  // department: { type: String, default: 'Ancient West Asian Art Department' },
+  const imageError = ref(false);
+  const handleImageError = () => {
+    imageError.value = true;
+  }
 
-    })
-console.log(props.obj)
-  // })
 </script>
 
 <template>
