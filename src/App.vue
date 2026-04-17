@@ -9,6 +9,7 @@ import { getAllDepartments, getAllObjectsInfo } from './services/api/metAPI';
 
 // Fetch data
 const isLoading = ref(false);
+const errorMessage = ref(null);
 const objects = ref([]);
 const currentPage = ref(1);
 
@@ -17,10 +18,13 @@ const totalPages= ref(5); // TODO: change this to actual
 const loadData = async (page) => {
   try {
     isLoading.value = true;
+    errorMessage.value = null;
+
     const data = await getAllObjectsInfo(page+5);
     objects.value = data;
   } catch(error) {
     console.error("Erreur : ", {error});
+    errorMessage.value = "Oops ! Can't load the collection, try again later."
   } finally {
     isLoading.value = false;
   };
@@ -138,6 +142,16 @@ watch(headerSearch, (newVal) => {
     <!-- TODO : change body to div something or remove it entirely bcause incorrect term -->
 
       <div id="artwork-collection">
+
+        <div v-if="errorMessage" id="error-container">
+          <div class="error-content">
+            <img src="/icons/info-icon.svg" alt="Error" class="error-icon" />
+            <p>{{ errorMessage }}</p>
+            <button @click="loadData(currentPage)" class="retry-button">
+              Try again !
+            </button>
+          </div>
+        </div>
         <div id="artworks-cards">
        <ArtworkCard v-for="item in objects" :key="item.objectID" :obj="item" />
       </div>
@@ -291,6 +305,38 @@ watch(headerSearch, (newVal) => {
     align-items: center;
 
     z-index: 99999;
+  }
+
+  #error-container {
+    flex:1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    text-align: center;
+  }
+
+  .error-content{
+    background-color: #E8DEDF;
+    border: 3px solid #5A051A;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 400px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .error-content p {
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .error-icon{
+    width: 40px;
+    height: 40px;
   }
 
   .retry-button {
