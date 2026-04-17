@@ -140,9 +140,16 @@ const searchPlaceholder = computed(()=> {
     font-size: .8rem;
   }
 
+  .select-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
   select {
-    background: #EEE9E9 url("/icons/arrow-icon.svg") no-repeat right 7% center;
-    background-size: 12px 12px;
+    width: 100%;
+    background: #EEE9E9;
     padding: 7px 30px 7px 12px; /*top right bottom left*/
     border: .1rem solid #5A051A;
     border-radius: 8px;
@@ -150,6 +157,19 @@ const searchPlaceholder = computed(()=> {
     appearance: none;
     cursor: pointer;
     color: #5A051A;
+  }
+
+  .select-arrow {
+    position: absolute;
+    right: 12px;
+    width: 12px;
+    height: 12px;
+    pointer-events: none;
+    transition: transform 0.3s ease;
+  }
+
+  select::focus+.select-arrow {
+    transform: rotate(180deg);
   }
 
   select option {

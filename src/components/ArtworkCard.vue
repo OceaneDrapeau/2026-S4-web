@@ -1,6 +1,6 @@
 <script setup>
-
-import {ref} from 'vue';
+  import {ref} from 'vue';
+  import { useRouter } from 'vue-router';
 
   const props = defineProps({
     obj: { type: Object, required: true },
@@ -11,10 +11,16 @@ import {ref} from 'vue';
     imageError.value = true;
   }
 
+  const router = useRouter();
+
+  function goToDetails() {
+    router.push({name: 'artwork-detail', params:{id:props.obj.objectID}});
+  }
+
 </script>
 
 <template>
-  <div id="artwork-card">
+  <div id="artwork-card" @click="goToDetails">
     <img
       id = "artwork-picture"
       v-if="props.obj.primaryImageSmall && !imageError"

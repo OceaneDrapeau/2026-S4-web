@@ -12,6 +12,22 @@
 .loader {
   display: inline-flex;
   gap: 10px;
+
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top:0;
+  left: 0;
+
+  background-color: #5A051A;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 99999;
+
+
 }
 .loader:before,
 .loader:after {
