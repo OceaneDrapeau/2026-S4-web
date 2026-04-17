@@ -16,7 +16,7 @@ const totalPages= ref(5); // TODO: change this to actual
 const loadData = async (page) => {
   try {
     isLoading.value = true;
-    const data = await getAllObjectsInfo(page);
+    const data = await getAllObjectsInfo(page+5);
     objects.value = data;
   } catch(error) {
     console.error("Erreur : ", {error});
@@ -87,7 +87,7 @@ const activeFiltersCount = computed(()=> {
 
       <div id="artwork-collection">
         <div id="artworks-cards">
-       <ArtworkCard v-for="item in objects" :key="item.objectID" :artwork="item" />
+       <ArtworkCard v-for="item in objects" :key="item.objectID" :obj="item" />
       </div>
 
         <PaginationItem v-model = "currentPage" :totalPages = "totalPages"/>
@@ -204,8 +204,10 @@ const activeFiltersCount = computed(()=> {
 
   #artwork-collection {
     display: flex;
+    /* flex-direction: row; */
     flex-direction: column;
     flex: 1;
+    /* flex-wrap: wrap; */
     /* align-items: center; */
   }
 

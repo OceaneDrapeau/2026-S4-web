@@ -1,6 +1,17 @@
 <script setup>
   // const props = defineProps({
+  const props = defineProps({
+  obj: { type: Object, required: true },
 
+  // url: { type: String, required: true },
+  // text: { type: String, default: 'Visit my website' },
+  // legend: { type: Object, default: 'Vessel with six animal friezes' },
+  // artist: { type: Object, default: 'Unknown artist' },
+  // date: { type: Object, default: 'ca. 10th–8th century BCE' },
+  // department: { type: String, default: 'Ancient West Asian Art Department' },
+
+    })
+console.log(props.obj)
   // })
 </script>
 
@@ -8,14 +19,15 @@
   <div id="artwork-card">
     <img
       id = "artwork-picture"
-      src = "https://collectionapi.metmuseum.org/api/collection/v1/iiif/325693/2345379/main-image"
-      alt = "artwork"
+      v-if="props.obj.primaryImageSmall"
+      :src =  props.obj.primaryImageSmall
+      alt = "No available picture"
     />
     <div id = "artwork-informations" >
-      <h3>Vessel with six animal friezes</h3>
-      <p class = "artwork-artist">Unknown artist</p>
-      <p class = "artwork-date">ca. 10th–8th century BCE</p>
-      <p class = "artwork-department">Ancient West Asian Art Department</p>
+      <h3>{{ props.obj.title }}</h3>
+      <p class = "artwork-artist">{{ props.obj.artistDisplayName }}</p>
+      <p class = "artwork-date">{{ props.obj.objectDate }}</p>
+      <p class = "artwork-department">{{ props.obj.department }}</p>
     </div>
   </div>
 </template>
