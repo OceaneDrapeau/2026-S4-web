@@ -3,6 +3,7 @@ import { ref, computed, watch } from 'vue';
 import ArtworkCard from './components/ArtworkCard.vue';
 import FiltersPanel from './components/FiltersPanel.vue';
 import PaginationItem from './components/PaginationItem.vue';
+import AppLoader from './components/AppLoader.vue';
 import { getAllDepartments, getAllObjectsInfo } from './services/api/metAPI';
 
 
@@ -118,6 +119,9 @@ watch(headerSearch, (newVal) => {
 
 <template>
   <div id = "page">
+    <div id = "loader" v-if = "isLoading"> <AppLoader/></div>
+        <!-- <div id = "loader"> <AppLoader/></div> -->
+
     <header>
       <h1>The art collection</h1>
       <input type="text" v-model="headerSearch" placeholder="Browse the collection...">
@@ -230,7 +234,7 @@ watch(headerSearch, (newVal) => {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: #54051A;
+    background-color: #5A051A;
     color: #E8DEDF;
     border-radius: 50%;
     width: 16px;
@@ -270,5 +274,42 @@ watch(headerSearch, (newVal) => {
     width: 40%;
     flex-shrink: 0;
     display: flex;
+  }
+
+  #loader {
+    /* background-color: #5A051A; */
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top:0;
+    left: 0;
+
+    background-color: #5A051A;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 99999;
+  }
+
+  .retry-button {
+    background-color: #5A051A;
+    color: #EEE9E9;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 20px;
+    font-family: "InriaSans";
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+  }
+
+  .retry-button:hover {
+    background-color: #7a0723;
+    transform: scale(1.05);
+  }
+
+  .retry-button:active {
+    transform: scale(0.95);
   }
 </style>
